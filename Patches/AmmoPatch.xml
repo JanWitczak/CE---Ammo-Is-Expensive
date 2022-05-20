@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="XmlExtensions.ForEach">
+		<xpath>Defs/RecipeDef[not(@Abstract)][@ParentName="AmmoRecipeBase" or @ParentName="AdvancedAmmoRecipeBase" or @ParentName="LauncherAmmoRecipeBase"]</xpath>
+		<storeIn>Recipe</storeIn>
+		<apply>
+			<Operation Class="XmlExtensions.PatchOperationMath">
+				<xpath>{Recipe}/workAmount</xpath>
+				<value>5</value>
+				<operation>*</operation>
+			</Operation>
+			<Operation Class="XmlExtensions.CreateVariable">
+				<fromXml>true</fromXml>
+				<value>{Recipe}/ingredients/li[filter/thingDefs/li/text()="Steel"]/count</value>
+				<value2>0.5</value2>
+				<operation>*</operation>
+				<storeIn>SteelCount</storeIn>
+				<apply>
+					<Operation Class="XmlExtensions.PatchOperationAdd">
+						<xpath>{Recipe}/ingredients</xpath>
+						<value>
+							<li>
+								<filter>
+									<thingDefs>
+										<li>AIE-Propellant</li>
+									</thingDefs>
+								</filter>
+								<count>{SteelCount}</count>
+							</li>
+						</value>
+					</Operation>
+					<Operation Class="XmlExtensions.PatchOperationAdd">
+						<xpath>{Recipe}/fixedIngredientFilter/thingDefs</xpath>
+						<value>
+							<li>AIE-Propellant</li>
+						</value>
+					</Operation>
+				</apply>
+			</Operation>
+			<Operation Class="XmlExtensions.GetName">
+				<xpath>{Recipe}/products/*</xpath>
+				<storeIn>AmmoName</storeIn>
+				<apply>
+					<Operation Class="XmlExtensions.PatchOperationMath">
+						<xpath>Defs/ThingDef[defName="{AmmoName}"]/statBases/MarketValue</xpath>
+						<value>3</value>
+						<operation>*</operation>
+					</Operation>
+				</apply>
+			</Operation>
+		</apply>
+	</Operation>
+</Patch>
