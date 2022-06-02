@@ -2,22 +2,22 @@
 <Patch>
 	<Operation Class="XmlExtensions.ForEach">
 		<xpath>Defs/RecipeDef[not(@Abstract)][@ParentName="AmmoRecipeBase" or @ParentName="AdvancedAmmoRecipeBase" or @ParentName="LauncherAmmoRecipeBase"]</xpath>
-		<storeIn>Recipe</storeIn>
+		<storeIn>AmmoRecipe</storeIn>
 		<apply>
 			<Operation Class="XmlExtensions.PatchOperationMath">
-				<xpath>{Recipe}/workAmount</xpath>
-				<value>5</value>
+				<xpath>{AmmoRecipe}/workAmount</xpath>
+				<value>2</value>
 				<operation>*</operation>
 			</Operation>
 			<Operation Class="XmlExtensions.CreateVariable">
 				<fromXml>true</fromXml>
-				<value>{Recipe}/ingredients/li[filter/thingDefs/li/text()="Steel"]/count</value>
+				<value>{AmmoRecipe}/ingredients/li[filter/thingDefs/li/text()="Steel"]/count</value>
 				<value2>0.5</value2>
 				<operation>*</operation>
 				<storeIn>SteelCount</storeIn>
 				<apply>
 					<Operation Class="XmlExtensions.PatchOperationAdd">
-						<xpath>{Recipe}/ingredients</xpath>
+						<xpath>{AmmoRecipe}/ingredients</xpath>
 						<value>
 							<li>
 								<filter>
@@ -30,7 +30,7 @@
 						</value>
 					</Operation>
 					<Operation Class="XmlExtensions.PatchOperationAdd">
-						<xpath>{Recipe}/fixedIngredientFilter/thingDefs</xpath>
+						<xpath>{AmmoRecipe}/fixedIngredientFilter/thingDefs</xpath>
 						<value>
 							<li>AIE-Propellant</li>
 						</value>
@@ -38,12 +38,12 @@
 				</apply>
 			</Operation>
 			<Operation Class="XmlExtensions.GetName">
-				<xpath>{Recipe}/products/*</xpath>
+				<xpath>{AmmoRecipe}/products/*</xpath>
 				<storeIn>AmmoName</storeIn>
 				<apply>
 					<Operation Class="XmlExtensions.PatchOperationMath">
 						<xpath>Defs/ThingDef[defName="{AmmoName}"]/statBases/MarketValue</xpath>
-						<value>3</value>
+						<value>2</value>
 						<operation>*</operation>
 					</Operation>
 				</apply>
