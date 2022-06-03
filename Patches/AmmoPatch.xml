@@ -37,17 +37,6 @@
 					</Operation>
 				</apply>
 			</Operation>
-			<Operation Class="XmlExtensions.GetName">
-				<xpath>{AmmoRecipe}/products/*</xpath>
-				<storeIn>AmmoName</storeIn>
-				<apply>
-					<Operation Class="XmlExtensions.PatchOperationMath">
-						<xpath>Defs/ThingDef[defName="{AmmoName}"]/statBases/MarketValue</xpath>
-						<value>2</value>
-						<operation>*</operation>
-					</Operation>
-				</apply>
-			</Operation>
 		</apply>
 	</Operation>
 </Patch>
